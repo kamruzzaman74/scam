@@ -1,24 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
+import SignUp from "./SignUp";
+import Login from "./Login";
+import AdminLogin from "./AdminLogin";
+import AdminDashboard from "./AdminDashboard";
+import Navbar from "./Navbar"; // Import the Navbar
 
 function App() {
+  const [users, setUsers] = useState(JSON.parse(localStorage.getItem("users")) || []);
+  const isAdminLoggedIn = JSON.parse(localStorage.getItem("isAdminLoggedIn")) || false;
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      {/* Add Navbar at the top of all pages */}
+      <Navbar />
+
+      {/* Define Routes */}
+      <Routes>
+        <Route path="/" element={<SignUp setUsers={setUsers} />} />
+        <Route path="/login" element={<Login users={users} />} />
+        <Route path="/admin-login" element={<AdminLogin />} />
+        <Route
+          path="/dashboard"
+          element={isAdminLoggedIn ? <AdminDashboard /> : <Navigate to="/admin-login" replace />}
+        />
+      </Routes>
+    </Router>
   );
 }
 

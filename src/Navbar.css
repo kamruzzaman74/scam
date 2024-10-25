@@ -1,0 +1,15 @@
+/* Add this in App.css or your main CSS file */
+nav {
+    background-color: #333;
+    padding: 10px;
+  }
+  nav a {
+    color: white;
+    text-decoration: none;
+    padding: 8px 15px;
+    font-weight: bold;
+  }
+  nav a:hover {
+    background-color: #555;
+  }
+  
